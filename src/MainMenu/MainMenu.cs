@@ -8,6 +8,7 @@ namespace MainMenu
 
         public void ShowMenu(string[] args)
         {
+            Auth.AuthService authService = new Auth.AuthService();
             while (isRunning)
             {
                 MenuText();
@@ -16,9 +17,11 @@ namespace MainMenu
                 switch(input) {
                     case "1":
                         Console.WriteLine("you are going to Login.");
+                        authService.LoginAccount();
                         break;
                     case "2":
                         Console.WriteLine("you are going to Register.");
+                        authService.RegisterAccount();
                         break;
                     case "3":
                         Console.WriteLine("Thank you for using my real time chat.");
