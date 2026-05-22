@@ -1,10 +1,11 @@
 ﻿using System;
+using MainMenu;
 
 class Program
 {
     static void Main(string[] args)
     {
-        MainMenu.Menu menu = new MainMenu.Menu();
+        Menu menu = new Menu();
         menu.ShowMenu(args);
     }
 }
