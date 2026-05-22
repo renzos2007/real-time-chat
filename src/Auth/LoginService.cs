@@ -4,8 +4,12 @@ namespace Auth
     {
         public void Login (Login login)
         {
-            Console.WriteLine(login.GetEmail());
-            Console.WriteLine(login.GetPassword());
+            LoginAccount (login);
+        }
+
+        private void LoginAccount(Login login)
+        {
+            // http request to server
         }
     }
 }
