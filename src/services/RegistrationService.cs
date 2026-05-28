@@ -1,6 +1,6 @@
 using System;
 
-namespace Auth
+namespace Service
 {
     class RegistrationService
     {

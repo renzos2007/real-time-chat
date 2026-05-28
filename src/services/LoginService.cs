@@ -1,4 +1,6 @@
-namespace Auth
+using System;
+
+namespace Service
 {
     class LoginService
     {

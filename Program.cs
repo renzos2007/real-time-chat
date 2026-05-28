@@ -1,12 +1,12 @@
 ﻿using System;
-using MainMenu;
+using Menu;
 
 class Program
 {
     static void Main(string[] args)
     {
-        Menu menu = new Menu();
-        menu.ShowMenu(args);
+        MainMenu mainMenu = new MainMenu();
+        mainMenu.ShowMenu(args);
     }
 }
 

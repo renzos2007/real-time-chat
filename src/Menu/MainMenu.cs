@@ -1,14 +1,15 @@
 using System;
+using Service;
 
-namespace MainMenu
+namespace Menu
 {
-    class Menu
+    class MainMenu
     {
         bool isRunning = true;
 
         public void ShowMenu(string[] args)
         {
-            Auth.AuthService authService = new Auth.AuthService();
+            AuthService authService = new AuthService();
             while (isRunning)
             {
                 MenuText();
