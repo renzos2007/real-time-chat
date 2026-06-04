@@ -25,8 +25,6 @@ namespace Service
             var response = await Http.SharedClient.PostAsJsonAsync("auth/register", register);
 
             var responseBody = await response.Content.ReadAsStringAsync();
-
-            Console.WriteLine(responseBody);
         }
     }
 }

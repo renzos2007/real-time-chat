@@ -25,8 +25,6 @@ namespace Service
         {
             var response = await Http.SharedClient.PostAsJsonAsync("auth/login", login);
 
-            response.EnsureSuccessStatusCode();
-
             var loginResponse = await response.Content.ReadFromJsonAsync<LoginResponse>();
         }
     }
