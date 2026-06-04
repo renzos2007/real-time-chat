@@ -1,17 +1,33 @@
 using System;
+using System.Net.Http.Json;
+using System.Text.Json;
+using Config;
 
 namespace Service
 {
     class LoginService
     {
-        public void Login (Login login)
+        public async Task Login (Login login)
         {
-            LoginAccount (login);
+            try
+            {
+                await LoginAccount (login);
+                Console.WriteLine("Logged in");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            
         }
 
-        private void LoginAccount(Login login)
+        private async Task LoginAccount(Login login)
         {
-            // http request to server
+            var response = await Http.SharedClient.PostAsJsonAsync("auth/login", login);
+
+            response.EnsureSuccessStatusCode();
+
+            var loginResponse = await response.Content.ReadFromJsonAsync<LoginResponse>();
         }
     }
 }

@@ -11,6 +11,10 @@ namespace Service
         private string InputLogin(string label)
         {
             Console.Write($"{label}:");
+            if (label == "Password")
+            {
+                return Console.ReadLine() ?? string.Empty;
+            }
             return Console.ReadLine() ?? string.Empty;
         }
 
@@ -38,14 +42,14 @@ namespace Service
             registrationService.Register(register);
         }
 
-        public void LoginAccount()
+        public async Task LoginAccount()
         {
             string email = InputLogin("Email");
             string password = InputLogin("Password");
 
             Login login = new Login(email, password);
-            
-            loginService.Login(login);
+
+            await loginService.Login(login);
         }
     }
 }
