@@ -60,7 +60,6 @@ namespace Menu
                         Console.WriteLine("you are now going to chat.");
                         break;
                     case "2":
-                        Console.WriteLine("you are going to logout.");
                         await authService.LogoutAccount();
                         isLoggedin = false;
                         break;

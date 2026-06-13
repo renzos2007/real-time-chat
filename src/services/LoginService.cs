@@ -1,4 +1,5 @@
 using System;
+using System.Net;
 using System.Net.Http.Json;
 using Config;
 
@@ -37,8 +38,7 @@ namespace Service
         private async Task LogoutAccount()
         {
             var response = await Http.SharedClient.PostAsync("auth/logout", null);
-
-            var logoutResponse = await response.Content.ReadFromJsonAsync<LoginResponse>();
+            response.EnsureSuccessStatusCode();
         }
     }
 }
