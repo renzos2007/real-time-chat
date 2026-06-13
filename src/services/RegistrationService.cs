@@ -7,16 +7,18 @@ namespace Service
 {
     class RegistrationService
     {
-        public async Task Register(Register register)
+        public async Task<bool> Register(Register register)
         {
             try
             {
                 await RegisterAccountAsync(register);
                 Console.WriteLine("Registered account");
+                return true;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+                return false;
             }
         }
 

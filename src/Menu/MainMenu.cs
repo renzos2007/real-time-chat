@@ -6,6 +6,7 @@ namespace Menu
     class MainMenu
     {
         bool isRunning = true;
+        bool isLoggedin = false;
 
         public async Task ShowMenu(string[] args)
         {
@@ -18,11 +19,15 @@ namespace Menu
                 switch(input) {
                     case "1":
                         Console.WriteLine("you are going to Login.");
-                        await authService.LoginAccount();
+                        bool successfulLogin = await authService.LoginAccount();
+                        isLoggedin = true;
+                        await AuthSuccessful(successfulLogin, () => ShowLoggedinMenu(authService));
                         break;
                     case "2":
                         Console.WriteLine("you are going to Register.");
-                        await authService.RegisterAccount();
+                        bool successfulRegistery = await authService.RegisterAccount();
+                        isLoggedin = true;
+                        await AuthSuccessful(successfulRegistery, () => ShowLoggedinMenu(authService));
                         break;
                     case "3":
                         Console.WriteLine("Thank you for using my real time chat.");
@@ -35,9 +40,34 @@ namespace Menu
             }
         }
 
-        private async Task ShowLoggedinMenu()
+        private async Task AuthSuccessful(bool success, Func<Task> func)
         {
-            
+            if (success)
+            {
+                await func();
+            }
+        }
+
+        private async Task ShowLoggedinMenu(AuthService authService)
+        {
+            while (isLoggedin)
+            {
+                LoggedinMenuText();
+                string? input = Console.ReadLine();
+
+                switch(input) {
+                    case "1":
+                        Console.WriteLine("you are now going to chat.");
+                        break;
+                    case "2":
+                        Console.WriteLine("you are going to logout.");
+                        isLoggedin = false;
+                        break;
+                    default:
+                        Console.WriteLine("This is not a option");
+                        break;
+                }
+            }
         }
 
         private void LoggedinMenuText()
@@ -45,7 +75,6 @@ namespace Menu
             Console.WriteLine("Welcome to my real time chat. What do you want to do?");
             Console.WriteLine("1. Chat");
             Console.WriteLine("2. Logout");
-            Console.WriteLine("3. Quit");
         }
 
         private void MenuText()

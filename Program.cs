@@ -3,10 +3,10 @@ using Menu;
 
 class Program
 {
-    static void Main(string[] args)
+    static async Task Main(string[] args)
     {
         MainMenu mainMenu = new MainMenu();
-        mainMenu.ShowMenu(args);
+        await mainMenu.ShowMenu(args);
     }
 }
 

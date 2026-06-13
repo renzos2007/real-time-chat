@@ -7,16 +7,18 @@ namespace Service
 {
     class LoginService
     {
-        public async Task Login (Login login)
+        public async Task<bool> Login (Login login)
         {
             try
             {
                 await LoginAccount (login);
                 Console.WriteLine("Logged in");
+                return true;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+                return false;
             }
             
         }
