@@ -1,4 +1,5 @@
 using System;
+using Config;
 
 namespace Service
 {
@@ -50,6 +51,16 @@ namespace Service
             Login login = new Login(email, password);
 
             return await loginService.Login(login);
+        }
+
+        public async Task LogoutAccount()
+        {
+            bool success = await loginService.Logout();
+
+            if (!success)
+            {
+                Http.ClearCookies();
+            }
         }
     }
 }

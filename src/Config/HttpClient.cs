@@ -34,5 +34,16 @@ namespace Config
                 
             return handler.CookieContainer.GetCookies(SharedClient.BaseAddress);
         }
+
+        public static void ClearCookies()
+        {
+            if (SharedClient.BaseAddress is null) return;
+
+            var cookies = handler.CookieContainer.GetCookies(SharedClient.BaseAddress);
+            foreach (Cookie cookie in cookies)
+            {
+                cookie.Expired = true;
+            }
+        }
     }
 }

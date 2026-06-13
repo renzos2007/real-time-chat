@@ -1,18 +1,17 @@
 using System;
 using System.Net.Http.Json;
-using System.Text.Json;
 using Config;
 
 namespace Service
 {
     class LoginService
     {
-        public async Task<bool> Login (Login login)
+        private async Task<bool> ExecuteAsync(Func<Task> action, string successMessage)
         {
             try
             {
-                await LoginAccount (login);
-                Console.WriteLine("Logged in");
+                await action();
+                Console.WriteLine(successMessage);
                 return true;
             }
             catch (Exception ex)
@@ -20,14 +19,26 @@ namespace Service
                 Console.WriteLine(ex.Message);
                 return false;
             }
-            
         }
+
+        public async Task<bool> Login(Login login) =>
+            await ExecuteAsync(() => LoginAccount(login), "Logged in");
+
+        public async Task<bool> Logout() =>
+            await ExecuteAsync(LogoutAccount, "Logged out");
 
         private async Task LoginAccount(Login login)
         {
             var response = await Http.SharedClient.PostAsJsonAsync("auth/login", login);
 
             var loginResponse = await response.Content.ReadFromJsonAsync<LoginResponse>();
+        }
+
+        private async Task LogoutAccount()
+        {
+            var response = await Http.SharedClient.PostAsync("auth/logout", null);
+
+            var logoutResponse = await response.Content.ReadFromJsonAsync<LoginResponse>();
         }
     }
 }

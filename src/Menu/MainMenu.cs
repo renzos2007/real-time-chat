@@ -61,6 +61,7 @@ namespace Menu
                         break;
                     case "2":
                         Console.WriteLine("you are going to logout.");
+                        await authService.LogoutAccount();
                         isLoggedin = false;
                         break;
                     default:
