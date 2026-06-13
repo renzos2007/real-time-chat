@@ -7,7 +7,7 @@ namespace Menu
     {
         bool isRunning = true;
 
-        public void ShowMenu(string[] args)
+        public async Task ShowMenu(string[] args)
         {
             AuthService authService = new AuthService();
             while (isRunning)
@@ -18,11 +18,11 @@ namespace Menu
                 switch(input) {
                     case "1":
                         Console.WriteLine("you are going to Login.");
-                        authService.LoginAccount();
+                        await authService.LoginAccount();
                         break;
                     case "2":
                         Console.WriteLine("you are going to Register.");
-                        authService.RegisterAccount();
+                        await authService.RegisterAccount();
                         break;
                     case "3":
                         Console.WriteLine("Thank you for using my real time chat.");
@@ -33,6 +33,19 @@ namespace Menu
                         break;
                 }
             }
+        }
+
+        private async Task ShowLoggedinMenu()
+        {
+            
+        }
+
+        private void LoggedinMenuText()
+        {
+            Console.WriteLine("Welcome to my real time chat. What do you want to do?");
+            Console.WriteLine("1. Chat");
+            Console.WriteLine("2. Logout");
+            Console.WriteLine("3. Quit");
         }
 
         private void MenuText()

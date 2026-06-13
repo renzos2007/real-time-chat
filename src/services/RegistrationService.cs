@@ -7,11 +7,11 @@ namespace Service
 {
     class RegistrationService
     {
-        public void Register(Register register)
+        public async Task Register(Register register)
         {
             try
             {
-                RegisterAccountAsync(register);
+                await RegisterAccountAsync(register);
                 Console.WriteLine("Registered account");
             }
             catch (Exception ex)
@@ -20,7 +20,7 @@ namespace Service
             }
         }
 
-        private async void RegisterAccountAsync(Register register)
+        private async Task RegisterAccountAsync(Register register)
         {
             var response = await Http.SharedClient.PostAsJsonAsync("auth/register", register);
 

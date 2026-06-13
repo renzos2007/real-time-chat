@@ -31,7 +31,7 @@ namespace Service
             return value;
         }
 
-        public void RegisterAccount()
+        public async Task RegisterAccount()
         {
             string email = InputRegister("Email", verificationService.verifyEmail);
             string username = InputRegister("Username", verificationService.verifyUsername);
@@ -39,7 +39,7 @@ namespace Service
 
             Register register = new Register(email, username, password);
 
-            registrationService.Register(register);
+            await registrationService.Register(register);
         }
 
         public async Task LoginAccount()

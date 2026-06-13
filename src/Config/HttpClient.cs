@@ -27,5 +27,12 @@ namespace Config
                 ),
             };
         }
+
+        public static CookieCollection GetCookies() {
+            if (SharedClient.BaseAddress is null)
+                return new CookieCollection();
+                
+            return handler.CookieContainer.GetCookies(SharedClient.BaseAddress);
+        }
     }
 }
