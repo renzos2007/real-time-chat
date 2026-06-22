@@ -28,6 +28,8 @@ namespace Service
             {
                 await webSocket.ConnectAsync(new Uri($"{baseUrl}chat"), CancellationToken.None);
                 Console.WriteLine("Connected to chat.");
+                Console.WriteLine("You can send chats when you press enter and disconnect when you send the message '/exit'");
+                await Task.Delay(4000);
 
                 _ = Task.Run(() => StartReceiving(cts.Token));
 
