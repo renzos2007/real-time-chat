@@ -25,7 +25,6 @@ namespace Service
         private async Task RegisterAccountAsync(Register register)
         {
             var response = await Http.SharedClient.PostAsJsonAsync("auth/register", register);
-
             var responseBody = await response.Content.ReadAsStringAsync();
         }
     }

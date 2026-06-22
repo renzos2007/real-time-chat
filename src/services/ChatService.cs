@@ -17,19 +17,21 @@ namespace Service
             webSocket = new ClientWebSocket();
             cts = new CancellationTokenSource();
 
+            var uri = new Uri($"{baseUrl}chat");
             var cookies = Config.Http.GetCookies();
             foreach (System.Net.Cookie cookie in cookies)
             {
                 webSocket.Options.Cookies ??= new System.Net.CookieContainer();
+                cookie.Domain = uri.Host;
                 webSocket.Options.Cookies.Add(cookie);
             }
 
             try
             {
-                await webSocket.ConnectAsync(new Uri($"{baseUrl}chat"), CancellationToken.None);
+                await webSocket.ConnectAsync(uri, CancellationToken.None);
                 Console.WriteLine("Connected to chat.");
                 Console.WriteLine("You can send chats when you press enter and disconnect when you send the message '/exit'");
-                await Task.Delay(4000);
+                await Task.Delay(1500);
 
                 _ = Task.Run(() => StartReceiving(cts.Token));
 

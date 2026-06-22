@@ -24,6 +24,7 @@ namespace Service
 
         public async Task<bool> Login(Login login) =>
             await ExecuteAsync(() => LoginAccount(login), "Logged in");
+            
 
         public async Task<bool> Logout() =>
             await ExecuteAsync(LogoutAccount, "Logged out");
@@ -31,14 +32,12 @@ namespace Service
         private async Task LoginAccount(Login login)
         {
             var response = await Http.SharedClient.PostAsJsonAsync("auth/login", login);
-
-            var loginResponse = await response.Content.ReadFromJsonAsync<LoginResponse>();
+            var loginResponse = await response.Content.ReadAsStringAsync();
         }
 
         private async Task LogoutAccount()
         {
-            var response = await Http.SharedClient.PostAsync("auth/logout", null);
-            response.EnsureSuccessStatusCode();
+            var request = new HttpRequestMessage(HttpMethod.Post, "auth/logout");
         }
     }
 }
