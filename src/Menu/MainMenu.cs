@@ -50,6 +50,8 @@ namespace Menu
 
         private async Task ShowLoggedinMenu(AuthService authService)
         {
+            ChatService chatService = new ChatService();
+
             while (isLoggedin)
             {
                 LoggedinMenuText();
@@ -57,7 +59,7 @@ namespace Menu
 
                 switch(input) {
                     case "1":
-                        Console.WriteLine("you are now going to chat.");
+                        await chatService.Connect();
                         break;
                     case "2":
                         await authService.LogoutAccount();
