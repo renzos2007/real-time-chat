@@ -20,8 +20,12 @@ namespace Menu
                     case "1":
                         Console.WriteLine("you are going to Login.");
                         bool successfulLogin = await authService.LoginAccount();
-                        isLoggedin = true;
-                        await AuthSuccessful(successfulLogin, () => ShowLoggedinMenu(authService));
+
+                        if (successfulLogin)
+                        {
+                            isLoggedin = true;
+                            await ShowLoggedinMenu(authService);
+                        }
                         break;
                     case "2":
                         Console.WriteLine("you are going to Register.");
