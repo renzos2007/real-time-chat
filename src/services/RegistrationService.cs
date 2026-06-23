@@ -11,21 +11,28 @@ namespace Service
         {
             try
             {
-                await RegisterAccountAsync(register);
-                Console.WriteLine("Registered account");
-                return true;
+                var success = await RegisterAccountAsync(register);
+
+                if (success)
+                {
+                    Console.WriteLine("Registered account");
+                    return true;
+                }
+                
+                return false;
             }
-            catch
+            catch (Exception ex)
             {
-                Console.WriteLine("Something went wrong, try again later.");
+                Console.WriteLine($"Something went wrong: {ex.Message}");
                 return false;
             }
         }
 
-        private async Task RegisterAccountAsync(Register register)
+        private async Task<bool> RegisterAccountAsync(Register register)
         {
             var response = await Http.SharedClient.PostAsJsonAsync("auth/register", register);
-            var responseBody = await response.Content.ReadAsStringAsync();
+
+            return response.IsSuccessStatusCode;
         }
     }
 }

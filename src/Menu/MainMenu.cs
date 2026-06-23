@@ -34,8 +34,15 @@ namespace Menu
                     case "2":
                         Console.WriteLine("you are going to Register.");
                         bool successfulRegistery = await authService.RegisterAccount();
-                        isLoggedin = true;
-                        await AuthSuccessful(successfulRegistery, () => ShowLoggedinMenu(authService));
+                        if (successfulRegistery)
+                        {
+                            isLoggedin = true;
+                            await ShowLoggedinMenu(authService);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Registration failed, try again later");
+                        }
                         break;
                     case "3":
                         Console.WriteLine("Thank you for using my real time chat.");
