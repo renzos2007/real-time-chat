@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  real-time-chat:
+    build: .
+    ports:
+      - "7681:7681"
+    environment:
+      BASE_URL: http://example.url/api/
+      BASE_WEBSOCKET: ws://example.url/api/
+    # Optioneel: volume voor persistentie
+    volumes:
+      - ./data:/app/data
+    # Restart policy
+    restart: unless-stopped
