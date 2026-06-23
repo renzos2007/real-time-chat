@@ -18,13 +18,17 @@ namespace Menu
 
                 switch(input) {
                     case "1":
-                        Console.WriteLine("you are going to Login.");
+                        Console.WriteLine("You are going to Login.");
                         bool successfulLogin = await authService.LoginAccount();
 
                         if (successfulLogin)
                         {
                             isLoggedin = true;
                             await ShowLoggedinMenu(authService);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Login failed, try again later");
                         }
                         break;
                     case "2":

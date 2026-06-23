@@ -15,24 +15,30 @@ namespace Service
                 Console.WriteLine(successMessage);
                 return true;
             }
-            catch (Exception ex)
+            catch
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine("Something went wrong");
                 return false;
             }
         }
 
-        public async Task<bool> Login(Login login) =>
-            await ExecuteAsync(() => LoginAccount(login), "Logged in");
+        public async Task<bool> Login(Login login)
+        {
+            var response = await Http.SharedClient.PostAsJsonAsync("auth/login", login);
+
+            return response.IsSuccessStatusCode;
+        }
             
 
         public async Task<bool> Logout() =>
             await ExecuteAsync(LogoutAccount, "Logged out");
 
-        private async Task LoginAccount(Login login)
+        private async Task<bool> LoginAccount(Login login)
         {
             var response = await Http.SharedClient.PostAsJsonAsync("auth/login", login);
             var loginResponse = await response.Content.ReadAsStringAsync();
+
+            return response.IsSuccessStatusCode;
         }
 
         private async Task LogoutAccount()

@@ -15,9 +15,9 @@ namespace Service
                 Console.WriteLine("Registered account");
                 return true;
             }
-            catch (Exception ex)
+            catch
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine("Something went wrong, try again later.");
                 return false;
             }
         }
